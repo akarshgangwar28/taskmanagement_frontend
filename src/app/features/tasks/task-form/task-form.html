@@ -29,6 +29,17 @@
       </select>
     </div>
 
+    <div *ngIf="auth.currentUser()?.role === 'Manager' || auth.currentUser()?.role === 'Team Lead'">
+      <label for="assignedTo" class="block text-sm font-medium text-slate-700 mb-1">Assigned To</label>
+      <select id="assignedTo" formControlName="assignedTo"
+        class="appearance-none rounded-lg block w-full px-4 py-2 border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all cursor-pointer">
+        <option value="">Select an Assignee</option>
+        <option *ngFor="let u of users()" [value]="u.id">
+          {{ u.username }} ({{ u.role }})
+        </option>
+      </select>
+    </div>
+
     <div class="flex items-center justify-end space-x-3 pt-4 border-t border-slate-100">
       <button type="button" (click)="onCancel()"
         class="px-5 py-2.5 border border-slate-300 text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all shadow-sm">
